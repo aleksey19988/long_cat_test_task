@@ -1,3 +1,8 @@
+<?php
+require_once './src/db_config/db_connect.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,8 +21,7 @@
                     <th scope="col"><img src="icons/medals/medal_1.png" alt="1 место" width="40" height="40"></th>
                     <th scope="col"><img src="icons/medals/medal_2.png" alt="2 место" width="40" height="40"></th>
                     <th scope="col"><img src="icons/medals/medal_3.png" alt="3 место" width="40" height="40"></th>
-                    <th scope="col">Сумма медалей
-                    </th>
+                    <th scope="col">Сумма медалей</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,22 +31,22 @@
     </div>
     <div class="container">
         <a class="list-group">
-            <a href="#">
+            <a href="src/data_tools/forms/control_country_data.php">
                 <button type="button" class="list-group-item list-group-item-action" aria-current="true">
                     <p>Добавить страну</p>
                 </button>
             </a>
-            <a href="#">
+            <a href="src/data_tools/forms/control_medal_data.php">
                 <button type="button" class="list-group-item list-group-item-action" aria-current="true">
                     <p>Добавить медаль</p>
                 </button>
             </a>
-            <a href="#">
+            <a href="src/data_tools/forms/control_sport_data.php">
                 <button type="button" class="list-group-item list-group-item-action" aria-current="true">
                     <p>Добавить вид спорта</p>
                 </button>
             </a>
-            <a href="#">
+            <a href="src/data_tools/forms/control_athlete_data.php">
                 <button type="button" class="list-group-item list-group-item-action" aria-current="true">
                     <p>Добавить спортсмена</p>
                 </button>
