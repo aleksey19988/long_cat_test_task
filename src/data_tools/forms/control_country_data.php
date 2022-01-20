@@ -1,6 +1,5 @@
 <?php
 require_once '../forms_handlers/control_country_handler.php';
-
 ?>
 
 
@@ -36,7 +35,7 @@ require_once '../forms_handlers/control_country_handler.php';
                 <?php foreach($countriesList as $arr => $country): ?>
                     <tr>
                         <td value="<?= $country['name']; ?>" id="countryName"><?= $country['name']; ?></td>
-                        <td id="getCountryName()"><button type="button" class="btn btn-outline-dark deleteBtn" onclick="getNeighbor(this)">Удалить</button></td>
+                        <td id=""><button type="button" class="btn btn-outline-dark deleteBtn" onclick="getNeighbor(this)">Удалить</button></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
