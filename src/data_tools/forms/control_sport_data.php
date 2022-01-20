@@ -13,6 +13,11 @@ require_once '../forms_handlers/control_sport_handler.php';
 </head>
 
 <body>
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/long_cat_test_task">Home page</a>
+    </div>
+</nav>
 <div class="container">
     <h2 class="mt-5 mb-5">Добавить вид спорта</h2>
     <form action="../forms_handlers/control_sport_handler.php" method="post">

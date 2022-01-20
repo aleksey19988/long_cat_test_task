@@ -1,6 +1,7 @@
 <?php
 require_once './src/db_config/db_connect.php';
 
+$linesCounter = 1;
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +26,12 @@ require_once './src/db_config/db_connect.php';
                 </tr>
             </thead>
             <tbody>
-
+                <?php foreach($lines as $line): ?>
+                <tr>
+                    <td><?= $linesCounter++ ?></td>
+                    <td></td>
+                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
