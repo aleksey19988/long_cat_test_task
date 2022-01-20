@@ -18,7 +18,7 @@ require_once '../forms_handlers/control_country_handler.php';
         <form action="../forms_handlers/control_country_handler.php" method="post">
             <div class="mb-3">
                 <label for="add-country" class="form-label">Название страны</label>
-                <input type="text" class="form-control" id="add-country" name="country">
+                <input type="text" class="form-control" id="add-country" name="country" required>
             </div>
             <button type="submit" class="btn btn-primary">Добавить</button>
         </form>
@@ -45,4 +45,4 @@ require_once '../forms_handlers/control_country_handler.php';
 </body>
 
 </html>
-<script src="../deleteLine.js"></script>
+<script src="../forms_handlers/deleteLine.js"></script>
