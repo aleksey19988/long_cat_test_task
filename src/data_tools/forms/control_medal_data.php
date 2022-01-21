@@ -108,11 +108,11 @@ $athletesList = $conn->query("SELECT * FROM athletes ORDER BY id")->fetchAll();
         </tr>
         </thead>
         <tbody>
-        <?php foreach($countriesList as $arr => $country): ?>
-<!--            <tr>-->
-<!--                <td value="--><?//= $country['name']; ?><!--" id="countryName">--><?//= $country['name']; ?><!--</td>-->
-<!--                <td id=""><button type="button" class="btn btn-outline-dark deleteBtn" onclick="getNeighbor(this)">Удалить</button></td>-->
-<!--            </tr>-->
+        <?php foreach($medalsList as $arr => $medal): ?>
+            <tr>
+                <td value="<?= $medal['id']; ?>" id="medalId">#<?= $medal['id']; ?></td>
+                <td id=""><button type="button" class="btn btn-outline-dark deleteBtn" onclick="getNeighbor(this)">Удалить</button></td>
+            </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
