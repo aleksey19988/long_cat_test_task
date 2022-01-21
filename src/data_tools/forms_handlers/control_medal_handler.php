@@ -42,7 +42,7 @@ if (count($_POST) > 0) {
     $redirectUrl = "http://$_SERVER[HTTP_HOST]{$redirectUrl}forms/{$currentFileNameInArr[0]}_{$currentFileNameInArr[1]}_data.php";
     header('Location: ' . $redirectUrl);
 } elseif (count($_GET) > 0) {
-    $medalId = htmlspecialchars($_GET['medalId']);
+    $medalId = htmlspecialchars($_GET['medal']);
 
     if (strlen($medalId) <= 0) {
         print_r("Медаль не найдена!\n");

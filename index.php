@@ -21,11 +21,11 @@ foreach($countries as $countriesInArr => $country) {
 foreach($medalsList as $medalsInArr => $medal) {
     $medalTypeId = $medal['type_id'];
 
-    if (!array_key_exists($medalTypeId, $countriesList[$medal['country_id']]['medals'])) {
-        $countriesList[$medal['country_id']]['medals'][$medalTypeId] = 1;
-    } else {
-        $countriesList[$medal['country_id']]['medals'][$medalTypeId] += 1;
-    }
+//    if (!array_key_exists($medalTypeId, $countriesList[$medal['country_id']]['medals'])) {
+//        $countriesList[$medal['country_id']]['medals'][$medalTypeId] = 1;
+//    } else {
+//        $countriesList[$medal['country_id']]['medals'][$medalTypeId] += 1;
+//    }
     $countriesList[$medal['country_id']]['medals']['count'] += 1;
 }
 
