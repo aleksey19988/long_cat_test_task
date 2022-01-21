@@ -2,6 +2,33 @@
 require_once './src/db_config/db_connect.php';
 
 $linesCounter = 1;
+$countries = $conn->query("SELECT * FROM countries")->fetchAll();
+$medalTypeList = $conn->query("SELECT * FROM medal_types")->fetchAll();
+$medalsList = $conn->query("SELECT * FROM medals")->fetchAll();
+
+//Тут добавляем в массив каждую страну отдельно со своим id
+$countriesList = [];
+foreach($countries as $countriesInArr => $country) {
+    if (!array_key_exists($country['name'], $countriesList)) {
+        $countriesList[$country['id']] = [
+                'name' => $country['name'],
+                'medals' => [],
+        ];
+    }
+}
+
+//Тут заполняю в массиве со странами подмассив medals (общее кол-во и кол-во по типу медали по отдельности)
+foreach($medalsList as $medalsInArr => $medal) {
+    $medalTypeId = $medal['type_id'];
+
+    if (!array_key_exists($medalTypeId, $countriesList[$medal['country_id']]['medals'])) {
+        $countriesList[$medal['country_id']]['medals'][$medalTypeId] = 1;
+    } else {
+        $countriesList[$medal['country_id']]['medals'][$medalTypeId] += 1;
+    }
+    $countriesList[$medal['country_id']]['medals']['count'] += 1;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -26,12 +53,16 @@ $linesCounter = 1;
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($lines as $line): ?>
+            <?php foreach($countriesList as $country => $properties): ?>
                 <tr>
                     <td><?= $linesCounter++ ?></td>
-                    <td></td>
+                    <td><?= $properties['name']; ?></td>
+                    <td><?= $properties['medals']['1'] >= 1 ? $properties['medals']['1'] : 0; ?></td>
+                    <td><?= $properties['medals']['2'] >= 1 ? $properties['medals']['2'] : 0; ?></td>
+                    <td><?= $properties['medals']['3'] >= 1 ? $properties['medals']['3'] : 0; ?></td>
+                    <td><?= $properties['medals']['count'] >= 1 ? $properties['medals']['count'] : 0; ?></td>
                 </tr>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
     </div>
