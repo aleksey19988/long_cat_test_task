@@ -9,14 +9,12 @@ $medalsList = $conn->query("SELECT * FROM medals")->fetchAll();
 //Тут добавляем в массив каждую страну отдельно со своим id
 $countriesList = [];
 foreach($countries as $countriesInArr => $country) {
-//    if (!array_key_exists($country['name'], $countriesList)) {
-        $countriesList[$country['id']] = [
-                'name' => $country['name'],
-                'medals' => [
-                    'count' => 0,
-                ],
-        ];
-//    }
+    $countriesList[$country['id']] = [
+            'name' => $country['name'],
+            'medals' => [
+                'count' => 0,
+            ],
+    ];
 }
 
 //Тут заполняю в массиве со странами подмассив medals (общее кол-во и кол-во по типу медали по отдельности)

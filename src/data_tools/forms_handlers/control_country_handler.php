@@ -28,8 +28,15 @@ if (count($_POST) > 0) {
         if (count($queryResult->fetchAll()) < 1) {
             print_r("В таблице не найдена страна!");
         } else {
-            $query = "DELETE FROM countries WHERE name='{$country}'";
+            //Сначала удаляем все медали из таблицы медалей, которые заработала эта страна
+            $countryId = $conn->query("SELECT id FROM countries WHERE name='${country}'")->fetchAll(PDO::FETCH_COLUMN, 0)[0];
+            $countryMedalsList = $conn->query("SELECT id FROM medals WHERE country_id='{$countryId}'")->fetchAll(PDO::FETCH_COLUMN, 0);
+            foreach($countryMedalsList as $medalId) {
+                $result = $conn->query("DELETE FROM medals WHERE id='{$medalId}'");
+            }
 
+            //И теперь уже удаляем саму страну
+            $query = "DELETE FROM countries WHERE name='{$country}'";
             $queryResult = $conn->query($query);//Переменную $conn взяли из подключенного файла db_connect.php
             $currentUrlWithoutParameters = explode('?',"$_SERVER[REQUEST_URI]")[0];//Убрали GET-параметры
             $currentUrlInArr = explode('/',"$currentUrlWithoutParameters");
