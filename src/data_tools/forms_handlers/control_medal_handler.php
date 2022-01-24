@@ -29,7 +29,7 @@ if (count($_POST) > 0) {
     $sportId = (int) $conn->query("SELECT id FROM sports WHERE name='{$sportName}'")->fetchAll(PDO::FETCH_COLUMN, 0)[0];
     $athletesIdJSON = json_encode($athletesId);
 
-    $conn->query("INSERT INTO medals (type_id, country_id, sport_id, athletes_names) VALUES ('{$medalTypeId}', '{$countryId}', '{$sportId}', '{$athletesIdJSON}')");
+    $conn->query("INSERT INTO medals (type_id, country_id, sport_id, athletes_id) VALUES ('{$medalTypeId}', '{$countryId}', '{$sportId}', '{$athletesIdJSON}')");
 
     $currentUrlInArr = explode('/', "$_SERVER[REQUEST_URI]");
     $currentFileNameInArr = explode('_',$currentUrlInArr[count($currentUrlInArr) - 1]);//Разбиваем имя файла для дальнейшего пормирования url-адреса и последующего редиректа

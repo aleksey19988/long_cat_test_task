@@ -1,0 +1,12 @@
+.medal-type-link {
+    display: block;
+}
+table>* {
+    text-align: center;
+}
+td {
+    transition: all .2s;
+}
+td:hover {
+    background-color: #d3cdc9;
+}
