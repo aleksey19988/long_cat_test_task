@@ -1,33 +1,6 @@
 <?php
 require_once './src/db_config/db_connect.php';
-
-$lineNumCounter = 1;
-$countries = $conn->query("SELECT * FROM countries")->fetchAll();
-$medalTypeList = $conn->query("SELECT * FROM medal_types")->fetchAll();
-$medalsList = $conn->query("SELECT * FROM medals")->fetchAll();
-
-//Тут добавляем в массив каждую страну отдельно со своим id
-$countriesList = [];
-foreach($countries as $countriesInArr => $country) {
-    $countriesList[$country['id']] = [
-            'name' => $country['name'],
-            'medals' => [
-                'count' => 0,
-            ],
-    ];
-}
-
-//Тут заполняю в массиве со странами подмассив medals (общее кол-во и кол-во по типу медали по отдельности)
-foreach($medalsList as $medalsInArr => $medal) {
-    $medalTypeId = $medal['type_id'];
-
-    if (!array_key_exists($medalTypeId, $countriesList[$medal['country_id']]['medals'])) {
-        $countriesList[$medal['country_id']]['medals'][$medalTypeId] = 1;
-    } else {
-        $countriesList[$medal['country_id']]['medals'][$medalTypeId] += 1;
-    }
-    $countriesList[$medal['country_id']]['medals']['count'] += 1;
-}
+require_once './src/data_tools/sort_tools/sorted_data.php';
 
 ?>
 
@@ -45,30 +18,30 @@ foreach($medalsList as $medalsInArr => $medal) {
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Место</th>
-                    <th scope="col">Страна</th>
-                    <th scope="col"><img src="icons/medals/medal_1.png" alt="1 место" width="40" height="40"></th>
-                    <th scope="col"><img src="icons/medals/medal_2.png" alt="2 место" width="40" height="40"></th>
-                    <th scope="col"><img src="icons/medals/medal_3.png" alt="3 место" width="40" height="40"></th>
-                    <th scope="col">Сумма медалей</th>
+                    <th scope="col" id="position-sort" value="Место">Место</a></th>
+                    <th scope="col" id="country-sort" value="Страна">Страна</th>
+                    <th scope="col" id="first-position-sort" value="1-position"><img src="icons/medals/medal_1.png" alt="1 место" width="40" height="40"></th>
+                    <th scope="col" id="second-position-sort" value="2-position"><img src="icons/medals/medal_2.png" alt="2 место" width="40" height="40"></th>
+                    <th scope="col" id="third-position-sort" value="3-position"><img src="icons/medals/medal_3.png" alt="3 место" width="40" height="40"></th>
+                    <th scope="col" id="all-medals-number-sort" value="number-of-medals">Сумма медалей</th>
                 </tr>
             </thead>
             <tbody>
             <?php foreach($countriesList as $country => $properties): ?>
                 <tr>
-                    <td><?= $lineNumCounter++ ?></td>
+                    <td><?= $properties['position'] ?></td>
                     <td><?= $properties['name']; ?></td>
                     <td>
-                        <a class="medal-type-link" href="src/country_medals_data/get_medals.php?country-name=<?=$properties['name']?>&medals-type-id=1"><?= $properties['medals']['1'] >= 1 ? $properties['medals']['1'] : 0; ?></a>
+                        <a class="medal-type-link" href="src/country_medals_data/country_medals_data.php?country-name=<?=$properties['name']?>&medals-type-id=1"><?= $properties['medals']['1'] >= 1 ? $properties['medals']['1'] : 0; ?></a>
                     </td>
                     <td>
-                        <a class="medal-type-link" href="./src/country_medals_data/get_medals.php?country-name=<?=$properties['name']?>&medals-type-id=2"><?= $properties['medals']['2'] >= 1 ? $properties['medals']['2'] : 0; ?></a>
+                        <a class="medal-type-link" href="src/country_medals_data/country_medals_data.php?country-name=<?=$properties['name']?>&medals-type-id=2"><?= $properties['medals']['2'] >= 1 ? $properties['medals']['2'] : 0; ?></a>
                     </td>
                     <td>
-                        <a class="medal-type-link" href="./src/country_medals_data/get_medals.php?country-name=<?=$properties['name']?>&medals-type-id=3"><?= $properties['medals']['3'] >= 1 ? $properties['medals']['3'] : 0; ?></a>
+                        <a class="medal-type-link" href="src/country_medals_data/country_medals_data.php?country-name=<?=$properties['name']?>&medals-type-id=3"><?= $properties['medals']['3'] >= 1 ? $properties['medals']['3'] : 0; ?></a>
                     </td>
                     <td>
-                        <a class="medal-type-link" href="./src/country_medals_data/get_medals.php?country-name=<?=$properties['name']?>&medals-type-id=all"><?= $properties['medals']['count'] >= 1 ? $properties['medals']['count'] : 0; ?></a>
+                        <a class="medal-type-link" href="src/country_medals_data/country_medals_data.php?country-name=<?=$properties['name']?>&medals-type-id=all"><?= $properties['medals']['count'] >= 1 ? $properties['medals']['count'] : 0; ?></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -101,3 +74,4 @@ foreach($medalsList as $medalsInArr => $medal) {
     </div>
 </body>
 </html>
+<script src="./src/data_tools/sort_tools/sort_listener.js"></script>

@@ -10,3 +10,6 @@ td {
 td:hover {
     background-color: #d3cdc9;
 }
+th {
+    cursor: pointer;
+}

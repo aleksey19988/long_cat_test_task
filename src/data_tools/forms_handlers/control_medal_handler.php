@@ -29,6 +29,7 @@ if (count($_POST) > 0) {
     $sportId = (int) $conn->query("SELECT id FROM sports WHERE name='{$sportName}'")->fetchAll(PDO::FETCH_COLUMN, 0)[0];
     $athletesIdJSON = json_encode($athletesId);
 
+    //Добавляем данные в таблицу в медалями
     $conn->query("INSERT INTO medals (type_id, country_id, sport_id, athletes_id) VALUES ('{$medalTypeId}', '{$countryId}', '{$sportId}', '{$athletesIdJSON}')");
 
     $currentUrlInArr = explode('/', "$_SERVER[REQUEST_URI]");
